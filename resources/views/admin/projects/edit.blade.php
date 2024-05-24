@@ -21,7 +21,8 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-                    aria-describedby="nameHelpId" placeholder="Add name project" value="{{ old('name', $project->name) }}" />
+                    aria-describedby="nameHelpId" placeholder="Add name project"
+                    value="{{ old('name', $project->name) }}" />
                 <small id="nameHelpId" class="form-text text-muted">Type a name for this project</small>
                 @error('name')
                     <div class="text-danger py-3">
@@ -31,15 +32,29 @@
             </div>
 
 
-            <div class="mb-3">
-                <label for="cover_image" class="form-label">Cover_image</label>
-                <input type="file" name="cover_image" id="cover_imageHelpId">
-                <small id="cover_imageHelpId" class="form-text text-muted">Type a cover_image for this project</small>
-                @error('cover_image')
-                    <div class="text-danger py-3">
-                        {{ $message }}
-                    </div>
-                @enderror
+            <div class="d-flex gap-2 mb-3">
+                <!--Aggiungo lo snippet per capire quale tipologia di immagine visualizzare-->
+                @if (Str::startsWith($project->cover_image, 'https://'))
+                    <img width="140" src="{{ $project->cover_image }}" alt="{{ $project->title }}">
+                @else
+                    <img width="140" src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->title }}">
+                @endif
+                <!---->
+
+                <div>
+                    <label for="cover_image" class="form-label">Update cover image</label>
+                    <input type="file" class="form-control @error('cover_image') is-invalid @enderror" name="cover_image"
+                        id="cover_image" aria-describedby="cover_imageHelper" placeholder="Learn php"
+                        value="{{ old('cover_image', $project->cover_image) }}" />
+                    <small id="cover_imageHelper" class="form-text text-muted">Type a cover_image for this project</small>
+                    <!--snippet per visualizzare gli errori-->
+                    @error('cover_image')
+                        <div class="text-danger py-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <!---->
+                </div>
             </div>
 
 
@@ -58,10 +73,9 @@
             <div class="mb-3">
                 <label for="type_id" class="form-label">Type</label>
                 <select class="form-select form-select-lg" name="type_id" id="type_id">
-                    <option selected>Select a type</option>
+                    <option selected disabled>Select a type</option> <!--ricorda di aggiungere disabled perchè altrimenti i type potranno avere un valore non consentito e cradrai in errore!!-->
                     @foreach ($types as $type)
-                        <option value="{{ $type->id }}" {{ $type->id == old('type_id',$project->type_id) ? 'selected' : '' }}>
-                            {{ $type->name }}</option>
+                        <option value="{{ $type->id }}" {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}>{{ $type->name }}</option>
                         <!--Attendione: inserisci il valore di defaoult se non ci sono errori di validazione. Se c'è un errore di validazione, allora utilizza il metodo old e recupera il primo parametro, se il primo parametro non c'è utilizza il valore di default come recupero-->
                     @endforeach
                 </select>

@@ -104,6 +104,7 @@ class ProjectController extends Controller
         }
 
 
+        //dd($request->all());
 
 
         $project->update($validate);

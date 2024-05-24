@@ -59,7 +59,7 @@
             <div class="mb-3">
                 <label for="type_id" class="form-label">Type</label>
                 <select class="form-select form-select-lg" name="type_id" id="type_id">
-                    <option selected>Select a type</option>
+                    <option selected disabled>Select a type</option> <!--ricorda di aggiungere disabled perchè altrimenti i type potranno avere un valore non consentito e cradrai in errore!!-->
                    @foreach ($types as $type)
                        <option value="{{$type->id}}" {{$type->id == old('type_id') ? 'selected' : '' }}>{{$type->name}}</option>    <!--Ricordati, che per recuperare il vecchio valore inserito in caso di errore nell'invio del form
                     devi utilizzare 'selected', che in Bootstrap viene utilizzato per selezionare un valore di defoult. Inoltre ricorda di fare il confronto con == e non con === perchè il campo $type->id è numerico e non una stringa-->
