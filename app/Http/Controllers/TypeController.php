@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use Illuminate\Support\Str; //ricorda di importare Illuminate per utilizzare Str
+use Illuminate\Auth\Events\Validated;
 
 class TypeController extends Controller
 {
@@ -22,7 +24,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -30,7 +32,16 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        //
+        //dd($request->all());
+        //validare
+        $val_date=$request->validated();
+        
+        //creare
+        $val_date['slug']=Str::slug($request->name,'-');
+        Type::create($val_date);
+
+        //salvare
+        return to_route('admin.types.index')->with('message', 'Post created successfully');
     }
 
     /**

@@ -14,7 +14,7 @@
             @endif
 
 
-            <a href="#" class="p-4"><button class="btn btn-primary">Add
+            <a href="{{route('admin.types.create')}}" class="p-4"><button class="btn btn-primary">Add
                     Type</button></a>
             <div class="col">
                 <table class="table">
