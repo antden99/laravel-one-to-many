@@ -26,6 +26,10 @@
                             <div class="text-muted">{{ $project->description }}</div>
                         </div>
                         <div class="mb-3">
+                            <div class="fw-bold">Type:</div>
+                            <div class="text-muted">{{ $project->type ? $project->type->name : 'No Type'}}</div>    <!--Qui praticamente controllo se c'è un type-->
+                        </div> 
+                        <div class="mb-3">
                             <div class="fw-bold">Start Date:</div>
                             <div class="text-muted">{{ $project->start_date }}</div>
                         </div>

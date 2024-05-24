@@ -25,6 +25,7 @@ class StoreProjectRequest extends FormRequest
             'name'=>'required|min:5|max:20',
             'cover_image'=>'required|image|max:1000',
             'description'=>'nullable|max:255',
+            'type_id'=>'nullable|exists:types,id',   //qui praticamente dico che type_id può essere nullable, ma se c'è, deve esistere e appartenere alla tabella types, confrontandola con i suoi id
             'start_date'=>'required',
             'end_date'=>'nullable',
         ];
