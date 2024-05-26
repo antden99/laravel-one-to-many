@@ -15,8 +15,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types= Type::all();
-        return view('admin.types.index',compact('types'));
+        $types = Type::all();
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -34,10 +34,10 @@ class TypeController extends Controller
     {
         //dd($request->all());
         //validare
-        $val_date=$request->validated();
-        
+        $val_date = $request->validated();
+
         //creare
-        $val_date['slug']=Str::slug($request->name,'-');
+        $val_date['slug'] = Str::slug($request->name, '-');
         Type::create($val_date);
 
         //salvare
@@ -49,7 +49,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        return view('admin.types.show',compact('type'));
+        return view('admin.types.show', compact('type'));
     }
 
     /**
@@ -57,7 +57,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -65,7 +65,16 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        //validare
+        $validate = $request->validated();
+        //dd($validate);
+
+        //creare
+        $validate['slug'] = Str::slug($request->name, '-');
+        $type->update($validate);
+
+        //salvare ritornando alla rotta index
+        return to_route('admin.types.index')->with('message', 'Post created successfully');
     }
 
     /**
@@ -73,6 +82,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+
+        return to_route('admin.types.index');
     }
 }

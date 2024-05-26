@@ -11,8 +11,6 @@
                         <h4 class="mb-0"><strong>Type Name:</strong> {{ $type->name }}</h4>
                     </div>
 
-
-
                     <div class="card-body">
                         <div class="mb-3">
                             <div class="fw-bold">Type Slug :</div>
